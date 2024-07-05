@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
+import cors from "cors";
 import { createBookWithImage, updateBookById, deleteBookById, getBooks, getBookById } from "./database.js";
 
 // Define __dirname using import.meta.url
@@ -9,6 +10,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
+// Use the cors middleware
+app.use(cors({
+    origin: 'http://localhost:5173', // Replace with your React app's origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the methods you need
+    credentials: true, // If you need to include credentials like cookies in the request
+}));
 
 app.use(express.json());
 
